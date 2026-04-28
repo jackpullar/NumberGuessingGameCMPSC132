@@ -10,6 +10,8 @@ class Number_Guessing:
         self.active_game = True
         self.winner = False
 
+        self.max_tries = self.DIFFICULTIES[level] #determines max number of guesses
+
     def get_input(self): #takes in the user input, ensuring it is valid
 
         while True:
@@ -52,3 +54,18 @@ class Number_Guessing:
             self.tries += 1
             self.guesses.append(user_guess)
             self.check_guess(user_guess)
+
+    def get_difficulty(): #input to determine difficulty of game (number of guesses allowed)
+
+        while True:
+            try:
+                level = input("Please enter difficulty (easy, medium, or hard): ") 
+                level = level.lower().strip() #formats level to match dictionary
+                
+                if level in ["easy","medium","hard"]:
+                        return level
+                else:
+                    print("Please input a valid difficulty: easy, medium, or hard.")
+
+            except ValueError: #catches error
+                print("Invalid input. Try again!")
