@@ -2,6 +2,12 @@ import random
 
 class Number_Guessing: 
 
+    DIFFICULTIES = {
+        "easy": 11,
+        "medium": 8,
+        "hard": 5
+    } #determines number of guesses
+
     def __init__ (self, level): #initializes a new game and all attributes, creates new target number
 
         self.target = random.randint(1, 100)
@@ -11,6 +17,7 @@ class Number_Guessing:
         self.winner = False
 
         self.max_tries = self.DIFFICULTIES[level] #determines max number of guesses
+
 
     def get_input(self): #takes in the user input, ensuring it is valid
 
@@ -26,6 +33,7 @@ class Number_Guessing:
             except ValueError: #handles errors
                 print("That's not a valid integer. Please enter a valid integer between 1 and 100.")
 
+
     def check_guess(self,guess): #checks if the user guessed correctly and provides feedback
 
         if guess == self.target:
@@ -40,6 +48,7 @@ class Number_Guessing:
         if (self.tries == self.max_tries) and self.active_game: #checks if the user has used all available guesses
             self.active_game = False
             print(f"\nGame Over! You have no more tries! The number was {self.target}.")
+
            
     
     def game(self): #runs the game and updates the amount of guesses
@@ -55,17 +64,20 @@ class Number_Guessing:
             self.guesses.append(user_guess)
             self.check_guess(user_guess)
 
-    def get_difficulty(): #input to determine difficulty of game (number of guesses allowed)
 
-        while True:
-            try:
-                level = input("Please enter difficulty (easy, medium, or hard): ") 
-                level = level.lower().strip() #formats level to match dictionary
-                
-                if level in ["easy","medium","hard"]:
-                        return level
-                else:
-                    print("Please input a valid difficulty: easy, medium, or hard.")
 
-            except ValueError: #catches error
-                print("Invalid input. Try again!")
+
+def get_difficulty(): #input to determine difficulty of game (number of guesses allowed)
+
+    while True:
+        try:
+            level = input("Please enter difficulty (easy, medium, or hard): ") 
+            level = level.lower().strip() #formats level to match dictionary
+            
+            if level in ["easy","medium","hard"]:
+                    return level
+            else:
+                print("Please input a valid difficulty: easy, medium, or hard.")
+
+        except ValueError: #catches error
+            print("Invalid input. Try again!")
