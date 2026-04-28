@@ -23,3 +23,32 @@ class Number_Guessing:
                     print("Enter an integer between 1 and 100.")
             except ValueError: #handles errors
                 print("That's not a valid integer. Please enter a valid integer between 1 and 100.")
+
+    def check_guess(self,guess): #checks if the user guessed correctly and provides feedback
+
+        if guess == self.target:
+            self.active_game = False
+            self.winner = True
+            print(f"\nCorrect! Congrats! It took you {self.tries} tries!") #woohoo, winner!
+        elif guess > self.target:
+            print("\nToo high. Guess a lower number!")
+        else:
+            print("\nToo low. Guess a higher number!")
+        
+        if (self.tries == self.max_tries) and self.active_game: #checks if the user has used all available guesses
+            self.active_game = False
+            print(f"\nGame Over! You have no more tries! The number was {self.target}.")
+           
+    
+    def game(self): #runs the game and updates the amount of guesses
+
+        while self.active_game:
+            if len(self.guesses) != 0:
+                print(f"\nPrevious guesses: {self.guesses}!") #shows what the user has previously guessed
+
+            print(f"\nYou have {self.max_tries-self.tries} tries!\n")
+
+            user_guess = self.get_input() #section runs all the other methods
+            self.tries += 1
+            self.guesses.append(user_guess)
+            self.check_guess(user_guess)
